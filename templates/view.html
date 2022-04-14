@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href=" {{url_for('static', filename= 'view.css')}} " />
+</head>
+
+<header>
+    <h1>Viewing entry with ID: {{entry_id}}</h1>
+</header>
+
+<body>
+    <div class="entry">
+        <h1>{{date}}</h1>
+        <p>{{text}}</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href=" {{url_for('static', filename= 'log.css')}} " />
+</head>
+<header>
+    <div class="grid-container">
+        <div class="grid-item">
+            <h1>Enter a new entry here!</h1>
+            <form action="{{url_for('save')}}" method="post">
+                <label for="text">Entry Text</label>
+                <br>
+                <textarea name="text" id="text" rows="7" cols="49"></textarea>
+                <br>
+                <label for="tags">Tags</label>
+                <br>
+                <input type="text" id="tags" name="tags">
+                <input type="submit" id="sub" value="Submit">
+            </form>
+        </div>
+        <div class="grid-item2">
+            <div class="flashed-messages">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+            <h3>Enter an id to view the entry!</h3>
+            <form action="{{url_for('view_entry')}}" method="post">
+                <label for="entry_id">Entry ID</label>
+                <br>
+                <input type="text" id="entry_id" name="entry_id">
+                <input type="submit" id="sub" value="Submit">
+            </form>
+            <br>
+            <h3>Enter a tag to view matching entries!</h3>
+            <form action="{{url_for('search_tags')}}" method="post">
+                <label for="tag_name">Tag name</label>
+                <br>
+                <input type="text" id="tag_name" name="tag_name">
+                <input type="submit" id="sub" value="Submit">
+            </form>
+
+
+        </div>
+    </div>
+
+</header>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href=" {{url_for('static', filename= 'search_tags.css')}} " />
+</head>
+
+<header>
+    <h2>Search results for tag "{{name}}"</h2>
+</header>
+
+<body>
+    {% for t in texts %}
+    {% set date = dates[loop.index-1] %}
+    <h3>{{date}}</h3>
+    <p>{{t}}</p>
+    <br>
+    {% endfor %}
+</body>
+
+</html>
