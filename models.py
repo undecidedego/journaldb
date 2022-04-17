@@ -1,3 +1,4 @@
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
 import datetime
@@ -49,3 +50,12 @@ class Entry(db.Model):
 
     def __repr__(self):
         return f"Posted on date: {self.date_posted} \n {self.text}"
+
+
+class Account(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(32), unique=True, nullable=False)
+    password = db.Column(db.String(256), unique=False, nullable=True)
+
+    def __repr__(self):
+        return f"User {self.username}"

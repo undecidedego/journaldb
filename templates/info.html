@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href=" {{url_for('static', filename= 'info.css')}} " />
+</head>
+
+<header>
+    <ul>
+        <li><a href="{{url_for('logpage')}}">Log</a></li>
+        <li><a href="{{url_for('info')}}">Info</a></li>
+        <li><a href="{{url_for('loginpage')}}">Login</a></li>
+    </ul>
+    <h1>About Project TechDeck</h1>
+</header>
+
+<body>
+    <div id="info">
+        <h3>About me</h3>
+        <p>I'm Alex, an intermediate-level programmer and a disaster-level designer. </p>
+
+        <h3>About the project</h3>
+        <p>Project TechDeck is a collaborative, anonymous journalling platform. Any user may post an anonymous entry and
+            add tags to make it searchable by other users, or share
+            IDs externally that users can then plug in to view the entry. Data about the user making a post is not
+            collected, nor is any session data about user logins stored, so
+            the anonymity of posts is ensured. Logging in is required to view entries or make new ones, though, so only
+            pre-approved users can make use of the platform. I chose this project because it was an idea I'd been
+            planning to
+            implement for personal use for years but never gotten around to.
+        </p>
+
+        <h3>About the technology</h3>
+        <p>This project uses a wide range of technology, including python's flask library for server-side operations,
+            the flask-login library to handle secure (hashed and salted) password generation and login, sql-alchemy to
+            manage the postgresql database holding all data, CSS for webpage styling, and Javascript for frontend
+            message display (such as the "no entry found" message) and connecting to the server. This info page is
+            viewable by any with the link or url, but to view any of the functional pages a user must be logged in. The
+            demouser account has been set up as required.</p>
+
+        <h3>About the class</h3>
+        <p>
+            This class has provided me with opportunities to learn about technologies I'd not interacted with before,
+            such as MyPHPAdmin, and allowed me to get more practice with technologies I have used before, such as AWS
+            and linux.
+        </p>
+
+        <h3>Checklist</h3>
+        <ol>
+            <li>This webpage uses a postgresql database hosted by heroku. This is in use on the login, post, search
+                tags, and search id pages.</li>
+            <li>Ajax was not used for this webpage as my needs for updating in place were fulfilled by flask's "flash"
+                feature, which allows you to display a message on the webpage for things such as failed logins. This is
+                in use on the login page, search tags, and search id.</li>
+            <li>All pages on the website are using similar CSS, with a consistent color scheme and grid layout
+                throughout pages with tweaks as necessary.</li>
+            <li>This project uses several liberaries that were not taught in class, such as flask-login, which is in use
+                on the login page.</li>
+            <li>This project uses JSS for the navigation buttons across the site.</li>
+            <li>The membership area of the site including the posting and searching pages can only be accessed if a user
+                is logged in. If a user is not logged in, they will be redirected to the login page.</li>
+            <li>The general user account was set up as requested, with username "demouser" and password
+                "ThisIsForWPClass"</li>
+        </ol>
+    </div>
+</body>

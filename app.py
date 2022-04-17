@@ -1,6 +1,14 @@
 from dotenv import find_dotenv, load_dotenv
 from flask import Flask, redirect, render_template, session, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import (
+    LoginManager,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
+)
 import os
 
 
@@ -13,6 +21,13 @@ app.config["SECRET_KEY"] = "MrmpiNtSBM7MSp1QBnQd"
 
 @app.route("/")
 def main():
+    if not current_user.is_authenticated:
+        return redirect("/login")
+    return render_template("log.html")
+
+
+@app.route("/log")
+def logpage():
     return render_template("log.html")
 
 
@@ -20,14 +35,55 @@ from models import db
 
 db.init_app(app)
 with app.app_context():
+
     # db.drop_all()
     db.create_all()
 
-from models import Entry, Tag, tag_entry_relation
+from models import Entry, Tag, tag_entry_relation, Account
+
+login_manager = LoginManager()
+login_manager.login_view = "/login"
+login_manager.login_message = ""
+login_manager.init_app(app=app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Account.query.get(int(user_id))
+
+
+@app.route("/login", methods=["GET"])
+def loginpage():
+    if current_user.is_authenticated:
+        return redirect("/")
+    return render_template("login.html")
+
+
+@app.route("/info", methods=["GET"])
+def info():
+    return render_template("info.html")
+
+
+@app.route("/loginpost", methods=["POST"])
+def loginpost():
+    # firstuser = Account(username="demouser",password=generate_password_hash("ThisIsForWPClass", method="sha256"),)
+    # db.session.add(firstuser)
+    # db.session.commit()
+    username = request.form.get("username").lower()
+    password = request.form.get("password")
+    user = Account.query.filter_by(username=username).first()
+    if not user or not check_password_hash(user.password, password):
+        flash("Incorrect email or password.")
+        return redirect("/login")
+
+    login_user(user, remember=True)
+    return redirect("/")
 
 
 @app.route("/save", methods=["POST"])
 def save():
+    if not current_user.is_authenticated:
+        return redirect("/login")
     data = request.form
     text = request.form.get("text")
     tags = tag_to_set(request.form.get("tags"))
@@ -41,6 +97,8 @@ def save():
 
 @app.route("/view_entry", methods=["POST"])
 def view_entry():
+    if not current_user.is_authenticated:
+        return redirect("/login")
     data = request.form
     id = request.form.get("entry_id")
     print("fetching entry id: ", id)
@@ -56,6 +114,8 @@ def view_entry():
 
 @app.route("/search_tags", methods=["POST"])
 def search_tags():
+    if not current_user.is_authenticated:
+        return redirect("/login")
     data = request.form
     name = request.form.get("tag_name")
     print("fetching tag name: ", name)
@@ -73,6 +133,7 @@ def search_tags():
 
 
 def add_tags(entry, tags):
+
     for t in tags:
         tag = Tag.query.filter_by(name=t).first()
         if not tag:
