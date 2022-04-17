@@ -5,6 +5,11 @@
     <link rel="stylesheet" type="text/css" href=" {{url_for('static', filename= 'log.css')}} " />
 </head>
 <header>
+    <ul>
+        <li><a href="{{url_for('logpage')}}">Log</a></li>
+        <li><a href="{{url_for('info')}}">Info</a></li>
+        <li><a href="{{url_for('loginpage')}}">Login</a></li>
+    </ul>
     <div class="grid-container">
         <div class="grid-item">
             <h1>Enter a new entry here!</h1>

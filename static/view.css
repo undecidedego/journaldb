@@ -12,3 +12,9 @@ html {
     margin: auto;
     padding: 50px;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

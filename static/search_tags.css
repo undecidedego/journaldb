@@ -13,3 +13,9 @@ html {
     font-size: 25px;
     color: #bebebe;
 }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
